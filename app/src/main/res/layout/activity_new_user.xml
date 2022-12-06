@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".NewUserActivity">
+
+    <LinearLayout
+        android:id="@+id/topLinearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="72dp"
+        android:background="@color/teal"
+        android:orientation="horizontal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+        <ImageView
+            android:id="@+id/back"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_gravity="center_vertical"
+            app:srcCompat="@drawable/ic_cancel"
+            android:layout_marginLeft="12dp">
+        </ImageView>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="22dp"
+            android:textColor="@color/white"
+            android:fontFamily="@font/montserrat_alternates_semibold"
+            android:gravity="center_vertical"
+            android:text="Новый пользователь"
+            android:textSize="20dp">
+        </TextView>
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/buttonSave"
+            android:layout_marginLeft="12dp"
+            android:layout_width="120dp"
+            android:layout_height="28dp"
+            android:text="Сохранить"
+            android:textColor="@color/white"
+            android:textSize="16dp"
+            android:textAllCaps="false"
+            android:background="@drawable/button">
+        </androidx.appcompat.widget.AppCompatButton>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_marginTop="12dp"
+        android:layout_width="match_parent"
+        android:layout_height="36dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/topLinearLayout"
+        android:orientation="horizontal">
+        <TextView
+            android:id="@+id/navIndividual"
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="12dp"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="0.5"
+            android:background="@drawable/button_grey_left"
+            android:text="Физ. лицо"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:layout_gravity="center"
+            android:fontFamily="@font/montserrat_alternates_semibold"
+            android:textSize="20dp">
+        </TextView>
+        <TextView
+            android:id="@+id/navCompany"
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="12dp"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="0.5"
+            android:background="@drawable/button_teal_right"
+            android:text="Компания"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:layout_gravity="center"
+            android:fontFamily="@font/montserrat_alternates_semibold"
+            android:textSize="20dp">
+        </TextView>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"
+        android:orientation="vertical"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout2"
+        tools:layout_editor_absoluteX="82dp">
+        <ImageView
+            android:layout_marginTop="12dp"
+            android:id="@+id/entityImg"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            app:srcCompat="@drawable/ic_company"
+            android:layout_gravity="center_horizontal"/>
+
+        <EditText
+            android:id="@+id/edit1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ems="19"
+            android:inputType="textPersonName"
+            android:hint="Имя"
+            android:imeOptions="actionNext"/>
+
+        <EditText
+            android:id="@+id/edit2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ems="19"
+            android:inputType="phone"
+            android:hint="Телефон"
+            android:imeOptions="actionNext"/>
+
+        <EditText
+            android:id="@+id/edit3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:inputType="textPersonName"
+            android:ems="19"
+            android:hint="Адрес"
+            android:imeOptions="actionNext"/>
+
+        <EditText
+            android:id="@+id/edit4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ems="19"
+            android:inputType="text"
+            android:hint="E-mail"
+            android:imeOptions="actionNext"/>
+
+        <EditText
+            android:id="@+id/edit5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:inputType="textPersonName"
+            android:ems="19"
+            android:hint="Деятельность"
+            android:imeOptions="actionNext"/>
+
+        <EditText
+            android:id="@+id/edit6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:inputType="textPersonName"
+            android:ems="19"
+            android:hint="Штат"
+            android:imeOptions="actionDone"/>
+
+<!--        <androidx.appcompat.widget.AppCompatButton-->
+<!--            android:layout_marginTop="10dp"-->
+<!--            android:id="@+id/buttonSave"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="50dp"-->
+<!--            android:text="Сохранить"-->
+<!--            android:textColor="@color/white"-->
+<!--            android:textSize="16dp"-->
+<!--            android:textAllCaps="false"-->
+<!--            android:background="@drawable/button">-->
+<!--        </androidx.appcompat.widget.AppCompatButton>-->
+    </LinearLayout>
+    <!--    <ListView-->
+<!--        android:layout_marginTop="12dp"-->
+<!--        android:layout_marginLeft="12dp"-->
+<!--        android:layout_marginRight="12dp"-->
+<!--        android:id="@+id/newUserList"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="500dp"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/linearLayout2"-->
+<!--        app:layout_goneMarginTop="40dp" />-->
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

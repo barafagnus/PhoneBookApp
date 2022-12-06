@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".EditUserActivity">
+    <LinearLayout
+        android:id="@+id/topLinearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="72dp"
+        android:background="@color/teal"
+        android:orientation="horizontal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+        <ImageView
+            android:id="@+id/back"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_gravity="center_vertical"
+            app:srcCompat="@drawable/ic_cancel"
+            android:layout_marginLeft="12dp">
+        </ImageView>
+        <TextView
+            android:layout_width="200dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="22dp"
+            android:textColor="@color/white"
+            android:fontFamily="@font/montserrat_alternates_semibold"
+            android:gravity="center_vertical"
+            android:text="Редактирование"
+            android:textSize="20dp">
+        </TextView>
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/buttonSave"
+            android:layout_marginLeft="12dp"
+            android:layout_width="120dp"
+            android:layout_height="34dp"
+            android:text="Сохранить"
+            android:textColor="@color/white"
+            android:textSize="16dp"
+            android:textAllCaps="false"
+            android:background="@drawable/button">
+        </androidx.appcompat.widget.AppCompatButton>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="match_parent"
+        android:layout_height="36dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/topLinearLayout"
+        android:orientation="horizontal">
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"
+        android:orientation="vertical"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout2"
+        tools:layout_editor_absoluteX="82dp">
+
+        <EditText
+            android:id="@+id/edit1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ems="19"
+            android:inputType="textPersonName"
+            android:imeOptions="actionNext"/>
+
+        <EditText
+            android:id="@+id/edit2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ems="19"
+            android:inputType="phone"
+            android:imeOptions="actionNext"/>
+
+        <EditText
+            android:id="@+id/edit3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:inputType="textPersonName"
+            android:ems="19"
+            android:imeOptions="actionNext"/>
+
+        <EditText
+            android:id="@+id/edit4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ems="19"
+            android:inputType="text"
+            android:imeOptions="actionNext"/>
+
+        <EditText
+            android:id="@+id/edit5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:inputType="textPersonName"
+            android:ems="19"
+            android:imeOptions="actionNext"/>
+
+        <EditText
+            android:id="@+id/edit6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:inputType="textPersonName"
+            android:ems="19"
+            android:imeOptions="actionDone"/>
+
+        <!--        <androidx.appcompat.widget.AppCompatButton-->
+        <!--            android:layout_marginTop="10dp"-->
+        <!--            android:id="@+id/buttonSave"-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="50dp"-->
+        <!--            android:text="Сохранить"-->
+        <!--            android:textColor="@color/white"-->
+        <!--            android:textSize="16dp"-->
+        <!--            android:textAllCaps="false"-->
+        <!--            android:background="@drawable/button">-->
+        <!--        </androidx.appcompat.widget.AppCompatButton>-->
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
