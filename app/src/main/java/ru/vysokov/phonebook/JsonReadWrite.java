@@ -8,20 +8,14 @@ import java.io.File;
 import java.io.IOException;
 
 public class JsonReadWrite {
-    static File fileDirectory = new File(Environment.getExternalStorageDirectory() + "/saves.json");
-    static String filePath;
 
     public static void writeJson(Object user) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
-        mapper.writeValue(fileDirectory, user);
-        System.out.println(fileDirectory.getPath());
-        System.out.println("JSON WRITTEN");
+        mapper.writeValue(new File("saves.json"), user);
     }
 
     public static void readJson() throws IOException {
         ObjectMapper mapper = new ObjectMapper();
-        User user1 = mapper.readValue(fileDirectory, User.class);
-        System.out.println("JSON DATA READ");
-        System.out.println(user1.toString());
+        User user1 = mapper.readValue("saves.json", User.class);
     }
 }

@@ -71,5 +71,21 @@
             app:srcCompat="@drawable/ic_adduser"></ImageView>
     </LinearLayout>
 
+<!--    <Button-->
+<!--        android:id="@+id/checkDB1"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="checkDB1"-->
+<!--        app:layout_constraintBottom_toTopOf="@+id/linearLayout3"-->
+<!--        app:layout_constraintStart_toStartOf="parent" />-->
+
+<!--    <Button-->
+<!--        android:id="@+id/checkDB2"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="checkdb2"-->
+<!--        app:layout_constraintBottom_toTopOf="@+id/linearLayout3"-->
+<!--        app:layout_constraintStart_toEndOf="@+id/checkDB1" />-->
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

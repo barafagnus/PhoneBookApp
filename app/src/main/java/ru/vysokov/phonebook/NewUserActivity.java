@@ -1,25 +1,19 @@
 package ru.vysokov.phonebook;
 
-import static ru.vysokov.phonebook.R.color.grey;
-import static ru.vysokov.phonebook.R.color.light_teal;
-
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
-
-import java.util.ArrayList;
-import java.util.List;
+import java.util.LinkedList;
 
 public class NewUserActivity extends AppCompatActivity {
-    private static List<User> userList = new ArrayList<>();
+    private static LinkedList<User> userList = MainActivity.getUsers();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -86,31 +80,38 @@ public class NewUserActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (individualIsActive[0] == true & companyIsActive[0] == false) {
-                    userList.add(new Individual(
+                    Individual newIndividual = new Individual(
                             edit1.getText().toString(),
                             edit2.getText().toString(),
                             edit3.getText().toString(),
                             edit4.getText().toString(),
                             edit5.getText().toString(),
-                            edit6.getText().toString()
-                    ));
+                            edit6.getText().toString());
+
+                    userList.add(newIndividual);
+
+                    SQLiteDatabase database = new DBHelper(getApplicationContext()).getWritableDatabase();
+                    database.execSQL("INSERT INTO individual(id, name, phone, address, age, education, profession) VALUES ('" + newIndividual.getId() + "', '" + edit1.getText().toString() + "', '" + edit2.getText().toString() + "', '"+ edit3.getText().toString() + "', '" + edit4.getText().toString() + "', '" + edit5.getText().toString() + "', '" + edit6.getText().toString() + "')");
+                    database.close();
                 }
                 else if (individualIsActive[0] == false & companyIsActive[0] == true) {
-                    userList.add(new Company(
+                    Company newCompany = new Company(
                             edit1.getText().toString(),
                             edit2.getText().toString(),
                             edit3.getText().toString(),
                             edit4.getText().toString(),
                             edit5.getText().toString(),
-                            edit6.getText().toString()
-                    ));
+                            edit6.getText().toString());
+
+                    userList.add(newCompany);
+
+                    SQLiteDatabase database = new DBHelper(getApplicationContext()).getWritableDatabase();
+                    database.execSQL("INSERT INTO company(id, name, phone, address, mail, activity, staff) VALUES ('" + newCompany.getId() + "', '" + edit1.getText().toString() + "', '" + edit2.getText().toString() + "', '"+ edit3.getText().toString() + "', '" + edit4.getText().toString() + "', '" + edit5.getText().toString() + "', '" + edit6.getText().toString() + "')");
+                    database.close();
                 }
+                MainActivity.setUsers(userList);
                 startActivity(mainActivity);
             }
         });
-    }
-
-    public static List<User> getUserList() {
-        return userList;
     }
 }

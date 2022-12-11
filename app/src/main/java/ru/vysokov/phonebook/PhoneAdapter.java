@@ -15,16 +15,17 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
+import java.util.LinkedList;
 import java.util.List;
 
 public class PhoneAdapter extends ArrayAdapter<User> {
     private static int userPos;
     private Context context;
-    private List<User> users;
+    private LinkedList<User> users;
     public PhoneAdapter(Context context, List<User> users) {
         super(context, R.layout.item, users);
         this.context = context;
-        this.users = users;
+        this.users = (LinkedList<User>) users;
     }
 
     @NonNull
@@ -46,8 +47,6 @@ public class PhoneAdapter extends ArrayAdapter<User> {
         else {
             imageView.setImageResource(R.drawable.ic_avatar);
         }
-
-
 
         LinearLayout userPosition = (LinearLayout) view.findViewById(R.id.userPosition);
 
@@ -78,7 +77,6 @@ public class PhoneAdapter extends ArrayAdapter<User> {
                 context.startActivity(userInfoActivity);
             }
         });
-
         return view;
     }
 

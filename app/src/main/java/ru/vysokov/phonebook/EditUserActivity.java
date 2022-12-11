@@ -3,6 +3,7 @@ package ru.vysokov.phonebook;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -13,7 +14,7 @@ import android.widget.TextView;
 import java.util.List;
 
 public class EditUserActivity extends AppCompatActivity {
-
+    private int currentUserId;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -22,7 +23,6 @@ public class EditUserActivity extends AppCompatActivity {
         Button buttonSave = (Button) findViewById(R.id.buttonSave);
 
         Intent info = getIntent();
-
         EditText edit1 = (EditText) findViewById(R.id.edit1);
         EditText edit2 = (EditText) findViewById(R.id.edit2);
         EditText edit3 = (EditText) findViewById(R.id.edit3);
@@ -66,30 +66,44 @@ public class EditUserActivity extends AppCompatActivity {
             edit6.setHint("Штат: " + info6);
         }
 
+
         buttonSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //List<User> users = MainActivity.getUsers();
+                currentUserId = MainActivity.getUsers().get(PhoneAdapter.getUserPos()).getId();
                 if (entity.equals("company")) {
-                    MainActivity.setUsers().set(PhoneAdapter.getUserPos(), new Company(
-                            edit1.getText().toString(),
+                    Company editCompany = new Company(edit1.getText().toString(),
                             edit2.getText().toString(),
                             edit3.getText().toString(),
                             edit4.getText().toString(),
                             edit5.getText().toString(),
-                            edit6.getText().toString()));
+                            edit6.getText().toString());
+                    editCompany.setId(currentUserId);
+                    MainActivity.setUsers().set(PhoneAdapter.getUserPos(), editCompany);
+
+                    SQLiteDatabase database = new DBHelper(getApplicationContext()).getWritableDatabase();
+                    database.execSQL("UPDATE company SET name = '" + edit1.getText().toString() + "', phone = '" + edit2.getText().toString() + "', address = '" + edit3.getText().toString() + "', mail = '" + edit4.getText().toString() + "', activity = '" + edit5.getText().toString() + "', staff = '" + edit6.getText().toString() + "' WHERE id = '"+ currentUserId +"'");
+                    database.close();
+
                 }
                 else if (entity.equals("individual")) {
-                    MainActivity.setUsers().set(PhoneAdapter.getUserPos(), new Individual(
-                            edit1.getText().toString(),
+                    Individual editIndividual = new Individual(edit1.getText().toString(),
                             edit2.getText().toString(),
                             edit3.getText().toString(),
                             edit4.getText().toString(),
                             edit5.getText().toString(),
-                            edit6.getText().toString()));
+                            edit6.getText().toString());
+                    editIndividual.setId(currentUserId);
+                    MainActivity.setUsers().set(PhoneAdapter.getUserPos(), editIndividual);
                 }
+
+                SQLiteDatabase database = new DBHelper(getApplicationContext()).getWritableDatabase();
+                database.execSQL("UPDATE individual SET name = '" + edit1.getText().toString() + "', phone = '" + edit2.getText().toString() + "', address = '" + edit3.getText().toString() + "', age = '" + edit4.getText().toString() + "', education = '" + edit5.getText().toString() + "', profession =  '" + edit6.getText().toString() + "' WHERE id = '"+ currentUserId +"'");
+                database.close();
                 startActivity(mainActivity);
             }
         });
     }
+
+
 }
