@@ -21,12 +21,7 @@ public class NewUserActivity extends AppCompatActivity {
 
         ImageView imageBack = (ImageView) findViewById(R.id.back);
         Intent mainActivity = new Intent(this, MainActivity.class);
-        imageBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(mainActivity);
-            }
-        });
+        imageBack.setOnClickListener(view -> startActivity(mainActivity));
 
         ImageView entityImg = (ImageView) findViewById(R.id.entityImg);
         EditText edit1 = (EditText) findViewById(R.id.edit1);
@@ -42,76 +37,67 @@ public class NewUserActivity extends AppCompatActivity {
         final boolean[] companyIsActive = {true};
         final boolean[] individualIsActive = {false};
 
-        navIndividual.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                individualIsActive[0] = true;
-                companyIsActive[0] = false;
-                entityImg.setImageResource(R.drawable.ic_avatar);
-                navIndividual.setBackgroundResource(R.drawable.button_teal_left);
-                navCompany.setBackgroundResource(R.drawable.button_grey_right);
-                edit1.setHint("Имя");
-                edit2.setHint("Телефон");
-                edit3.setHint("Адрес");
-                edit4.setHint("Возраст");
-                edit5.setHint("Образование");
-                edit6.setHint("Профессия");
-            }
+        navIndividual.setOnClickListener(view -> {
+            individualIsActive[0] = true;
+            companyIsActive[0] = false;
+            entityImg.setImageResource(R.drawable.ic_avatar);
+            navIndividual.setBackgroundResource(R.drawable.button_teal_left);
+            navCompany.setBackgroundResource(R.drawable.button_grey_right);
+            edit1.setHint("Имя");
+            edit2.setHint("Телефон");
+            edit3.setHint("Адрес");
+            edit4.setHint("Возраст");
+            edit5.setHint("Образование");
+            edit6.setHint("Профессия");
         });
 
-        navCompany.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                individualIsActive[0] = false;
-                companyIsActive[0] = true;
-                entityImg.setImageResource(R.drawable.ic_company);
-                navIndividual.setBackgroundResource(R.drawable.button_grey_left);
-                navCompany.setBackgroundResource(R.drawable.button_teal_right);
-                edit1.setHint("Имя");
-                edit2.setHint("Телефон");
-                edit3.setHint("Адрес");
-                edit4.setHint("E-mail");
-                edit5.setHint("Деятельность");
-                edit6.setHint("Штат");
-            }
+        navCompany.setOnClickListener(view -> {
+            individualIsActive[0] = false;
+            companyIsActive[0] = true;
+            entityImg.setImageResource(R.drawable.ic_company);
+            navIndividual.setBackgroundResource(R.drawable.button_grey_left);
+            navCompany.setBackgroundResource(R.drawable.button_teal_right);
+            edit1.setHint("Имя");
+            edit2.setHint("Телефон");
+            edit3.setHint("Адрес");
+            edit4.setHint("E-mail");
+            edit5.setHint("Деятельность");
+            edit6.setHint("Штат");
         });
 
-        buttonSave.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (individualIsActive[0] == true & companyIsActive[0] == false) {
-                    Individual newIndividual = new Individual(
-                            edit1.getText().toString(),
-                            edit2.getText().toString(),
-                            edit3.getText().toString(),
-                            edit4.getText().toString(),
-                            edit5.getText().toString(),
-                            edit6.getText().toString());
+        buttonSave.setOnClickListener(view -> {
+            if (individualIsActive[0] == true & companyIsActive[0] == false) {
+                Individual newIndividual = new Individual(
+                        edit1.getText().toString(),
+                        edit2.getText().toString(),
+                        edit3.getText().toString(),
+                        edit4.getText().toString(),
+                        edit5.getText().toString(),
+                        edit6.getText().toString());
 
-                    userList.add(newIndividual);
+                userList.add(newIndividual);
 
-                    SQLiteDatabase database = new DBHelper(getApplicationContext()).getWritableDatabase();
-                    database.execSQL("INSERT INTO individual(id, name, phone, address, age, education, profession) VALUES ('" + newIndividual.getId() + "', '" + edit1.getText().toString() + "', '" + edit2.getText().toString() + "', '"+ edit3.getText().toString() + "', '" + edit4.getText().toString() + "', '" + edit5.getText().toString() + "', '" + edit6.getText().toString() + "')");
-                    database.close();
-                }
-                else if (individualIsActive[0] == false & companyIsActive[0] == true) {
-                    Company newCompany = new Company(
-                            edit1.getText().toString(),
-                            edit2.getText().toString(),
-                            edit3.getText().toString(),
-                            edit4.getText().toString(),
-                            edit5.getText().toString(),
-                            edit6.getText().toString());
-
-                    userList.add(newCompany);
-
-                    SQLiteDatabase database = new DBHelper(getApplicationContext()).getWritableDatabase();
-                    database.execSQL("INSERT INTO company(id, name, phone, address, mail, activity, staff) VALUES ('" + newCompany.getId() + "', '" + edit1.getText().toString() + "', '" + edit2.getText().toString() + "', '"+ edit3.getText().toString() + "', '" + edit4.getText().toString() + "', '" + edit5.getText().toString() + "', '" + edit6.getText().toString() + "')");
-                    database.close();
-                }
-                MainActivity.setUsers(userList);
-                startActivity(mainActivity);
+                SQLiteDatabase database = new DBHelper(getApplicationContext()).getWritableDatabase();
+                database.execSQL("INSERT INTO individual(id, name, phone, address, age, education, profession) VALUES ('" + newIndividual.getId() + "', '" + edit1.getText().toString() + "', '" + edit2.getText().toString() + "', '"+ edit3.getText().toString() + "', '" + edit4.getText().toString() + "', '" + edit5.getText().toString() + "', '" + edit6.getText().toString() + "')");
+                database.close();
             }
+            else if (individualIsActive[0] == false & companyIsActive[0] == true) {
+                Company newCompany = new Company(
+                        edit1.getText().toString(),
+                        edit2.getText().toString(),
+                        edit3.getText().toString(),
+                        edit4.getText().toString(),
+                        edit5.getText().toString(),
+                        edit6.getText().toString());
+
+                userList.add(newCompany);
+
+                SQLiteDatabase database = new DBHelper(getApplicationContext()).getWritableDatabase();
+                database.execSQL("INSERT INTO company(id, name, phone, address, mail, activity, staff) VALUES ('" + newCompany.getId() + "', '" + edit1.getText().toString() + "', '" + edit2.getText().toString() + "', '"+ edit3.getText().toString() + "', '" + edit4.getText().toString() + "', '" + edit5.getText().toString() + "', '" + edit6.getText().toString() + "')");
+                database.close();
+            }
+            MainActivity.setUsers(userList);
+            startActivity(mainActivity);
         });
     }
 }

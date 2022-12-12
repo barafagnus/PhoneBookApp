@@ -20,13 +20,13 @@ public class MainActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
         ImageView imageNewUser = findViewById(R.id.newUser);
         Intent newUserActivity = new Intent(this, NewUserActivity.class);
-
         imageNewUser.setOnClickListener(view -> startActivity(newUserActivity));
 
-        ListView mainList = findViewById(R.id.mainList);
+        Intent settingsActivity = new Intent(this, SettingsActivity.class);
+        ImageView settings = (ImageView) findViewById(R.id.settings);
+        settings.setOnClickListener(view -> startActivity(settingsActivity));
 
         if (users.isEmpty()) {
             SQLiteDatabase database = new DBHelper(this).getReadableDatabase();
@@ -47,18 +47,9 @@ public class MainActivity extends AppCompatActivity{
             cursor.close();
         }
 
+        ListView mainList = findViewById(R.id.mainList);
         PhoneAdapter phoneAdapter = new PhoneAdapter(this, users);
         mainList.setAdapter(phoneAdapter);
-
-        Intent settingsActivity = new Intent(this, SettingsActivity.class);
-        ImageView settings = (ImageView) findViewById(R.id.settings);
-        settings.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(settingsActivity);
-            }
-        });
-
 
 //        Button checkDB1 = (Button) findViewById(R.id.checkDB1);
 //        Button checkDB2 = (Button) findViewById(R.id.checkDB2);

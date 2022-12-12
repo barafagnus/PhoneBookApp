@@ -6,11 +6,13 @@ import android.widget.Toast;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.util.LinkedList;
 import java.util.Scanner;
 
 public class FileReadWrite {
     static File fileDirectory = new File(Environment.getExternalStorageDirectory() + "/saves.txt");
     static String filePath;
+    static LinkedList data = new LinkedList<>();
 
     public static void writeFile(String userData) throws Exception {
         filePath = fileDirectory.getPath();

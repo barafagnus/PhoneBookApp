@@ -40,14 +40,8 @@ public class EditUserActivity extends AppCompatActivity {
 
         Intent mainActivity = new Intent(this, MainActivity.class);
         ImageView imageBack = (ImageView) findViewById(R.id.back);
-        Intent userInfoActivity = new Intent(this, UserInfoActivity.class);
 
-        imageBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(mainActivity);
-            }
-        });
+        imageBack.setOnClickListener(view -> startActivity(mainActivity));
 
         if (entity.equals("individual")) {
             edit1.setHint("Название: " + info1);
@@ -66,44 +60,38 @@ public class EditUserActivity extends AppCompatActivity {
             edit6.setHint("Штат: " + info6);
         }
 
-
-        buttonSave.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                currentUserId = MainActivity.getUsers().get(PhoneAdapter.getUserPos()).getId();
-                if (entity.equals("company")) {
-                    Company editCompany = new Company(edit1.getText().toString(),
-                            edit2.getText().toString(),
-                            edit3.getText().toString(),
-                            edit4.getText().toString(),
-                            edit5.getText().toString(),
-                            edit6.getText().toString());
-                    editCompany.setId(currentUserId);
-                    MainActivity.setUsers().set(PhoneAdapter.getUserPos(), editCompany);
-
-                    SQLiteDatabase database = new DBHelper(getApplicationContext()).getWritableDatabase();
-                    database.execSQL("UPDATE company SET name = '" + edit1.getText().toString() + "', phone = '" + edit2.getText().toString() + "', address = '" + edit3.getText().toString() + "', mail = '" + edit4.getText().toString() + "', activity = '" + edit5.getText().toString() + "', staff = '" + edit6.getText().toString() + "' WHERE id = '"+ currentUserId +"'");
-                    database.close();
-
-                }
-                else if (entity.equals("individual")) {
-                    Individual editIndividual = new Individual(edit1.getText().toString(),
-                            edit2.getText().toString(),
-                            edit3.getText().toString(),
-                            edit4.getText().toString(),
-                            edit5.getText().toString(),
-                            edit6.getText().toString());
-                    editIndividual.setId(currentUserId);
-                    MainActivity.setUsers().set(PhoneAdapter.getUserPos(), editIndividual);
-                }
+        buttonSave.setOnClickListener(view -> {
+            currentUserId = MainActivity.getUsers().get(PhoneAdapter.getUserPos()).getId();
+            if (entity.equals("company")) {
+                Company editCompany = new Company(edit1.getText().toString(),
+                        edit2.getText().toString(),
+                        edit3.getText().toString(),
+                        edit4.getText().toString(),
+                        edit5.getText().toString(),
+                        edit6.getText().toString());
+                editCompany.setId(currentUserId);
+                MainActivity.setUsers().set(PhoneAdapter.getUserPos(), editCompany);
 
                 SQLiteDatabase database = new DBHelper(getApplicationContext()).getWritableDatabase();
-                database.execSQL("UPDATE individual SET name = '" + edit1.getText().toString() + "', phone = '" + edit2.getText().toString() + "', address = '" + edit3.getText().toString() + "', age = '" + edit4.getText().toString() + "', education = '" + edit5.getText().toString() + "', profession =  '" + edit6.getText().toString() + "' WHERE id = '"+ currentUserId +"'");
+                database.execSQL("UPDATE company SET name = '" + edit1.getText().toString() + "', phone = '" + edit2.getText().toString() + "', address = '" + edit3.getText().toString() + "', mail = '" + edit4.getText().toString() + "', activity = '" + edit5.getText().toString() + "', staff = '" + edit6.getText().toString() + "' WHERE id = '"+ currentUserId +"'");
                 database.close();
-                startActivity(mainActivity);
+
             }
+            else if (entity.equals("individual")) {
+                Individual editIndividual = new Individual(edit1.getText().toString(),
+                        edit2.getText().toString(),
+                        edit3.getText().toString(),
+                        edit4.getText().toString(),
+                        edit5.getText().toString(),
+                        edit6.getText().toString());
+                editIndividual.setId(currentUserId);
+                MainActivity.setUsers().set(PhoneAdapter.getUserPos(), editIndividual);
+            }
+
+            SQLiteDatabase database = new DBHelper(getApplicationContext()).getWritableDatabase();
+            database.execSQL("UPDATE individual SET name = '" + edit1.getText().toString() + "', phone = '" + edit2.getText().toString() + "', address = '" + edit3.getText().toString() + "', age = '" + edit4.getText().toString() + "', education = '" + edit5.getText().toString() + "', profession =  '" + edit6.getText().toString() + "' WHERE id = '"+ currentUserId +"'");
+            database.close();
+            startActivity(mainActivity);
         });
     }
-
-
 }

@@ -45,19 +45,13 @@
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/buttonClearDB"
-            android:layout_width="160dp"
+            android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:text="Сбросить БД"
+            android:text="Сбросить все данные"
             android:textColor="@color/white"
             android:textSize="16dp"
             android:textAllCaps="false"
             android:background="@drawable/button">
         </androidx.appcompat.widget.AppCompatButton>
-
-        <Button
-            android:id="@+id/button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Button" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

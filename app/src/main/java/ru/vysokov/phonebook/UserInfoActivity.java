@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -40,25 +39,17 @@ public class UserInfoActivity extends AppCompatActivity {
         Intent mainActivity = new Intent(this, MainActivity.class);
         Intent EditUserActivity = new Intent(this, EditUserActivity.class);
 
-        buttonCancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(mainActivity);
-            }
-        });
+        buttonCancel.setOnClickListener(view -> startActivity(mainActivity));
 
-        buttonEdit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                EditUserActivity.putExtra("entity", entity);
-                EditUserActivity.putExtra("info1", info1);
-                EditUserActivity.putExtra("info2", info2);
-                EditUserActivity.putExtra("info3", info3);
-                EditUserActivity.putExtra("info4", info4);
-                EditUserActivity.putExtra("info5", info5);
-                EditUserActivity.putExtra("info6", info6);
-                startActivity(EditUserActivity);
-            }
+        buttonEdit.setOnClickListener(view -> {
+            EditUserActivity.putExtra("entity", entity);
+            EditUserActivity.putExtra("info1", info1);
+            EditUserActivity.putExtra("info2", info2);
+            EditUserActivity.putExtra("info3", info3);
+            EditUserActivity.putExtra("info4", info4);
+            EditUserActivity.putExtra("info5", info5);
+            EditUserActivity.putExtra("info6", info6);
+            startActivity(EditUserActivity);
         });
 
         if (entity.equals("company")) {
@@ -80,24 +71,21 @@ public class UserInfoActivity extends AppCompatActivity {
             txtInfo6.setText("Специальность: " + info6);
         }
 
-        buttonDelete.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                SQLiteDatabase database = new DBHelper(getApplicationContext()).getWritableDatabase();
+        buttonDelete.setOnClickListener(view -> {
+            SQLiteDatabase database = new DBHelper(getApplicationContext()).getWritableDatabase();
 
-                if (entity.equals("company")) {
-                    database.execSQL("DELETE FROM company WHERE id = '" + MainActivity.getUsers().get(PhoneAdapter.getUserPos()).getId() +"'");
-                    database.close();
-                }
-                else if (entity.equals("individual")) {
-                    database.execSQL("DELETE FROM individual WHERE id = '" + MainActivity.getUsers().get(PhoneAdapter.getUserPos()).getId() +"'");
-                    database.close();
-                }
-
-                userList.remove(MainActivity.getUsers().get(PhoneAdapter.getUserPos()));
-                MainActivity.setUsers(userList);
-                startActivity(mainActivity);
+            if (entity.equals("company")) {
+                database.execSQL("DELETE FROM company WHERE id = '" + MainActivity.getUsers().get(PhoneAdapter.getUserPos()).getId() +"'");
+                database.close();
             }
+            else if (entity.equals("individual")) {
+                database.execSQL("DELETE FROM individual WHERE id = '" + MainActivity.getUsers().get(PhoneAdapter.getUserPos()).getId() +"'");
+                database.close();
+            }
+
+            userList.remove(MainActivity.getUsers().get(PhoneAdapter.getUserPos()));
+            MainActivity.setUsers(userList);
+            startActivity(mainActivity);
         });
     }
 }
