@@ -35,7 +35,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_marginLeft="12dp"
         android:layout_marginRight="12dp"
@@ -48,6 +48,42 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:text="Сбросить все данные"
+            android:textColor="@color/white"
+            android:textSize="16dp"
+            android:textAllCaps="false"
+            android:background="@drawable/button">
+        </androidx.appcompat.widget.AppCompatButton>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:layout_marginTop="12dp"
+            android:id="@+id/buttonSynchToContacts"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:text="Синхронизировать приложение с контактами"
+            android:textColor="@color/white"
+            android:textSize="16dp"
+            android:textAllCaps="false"
+            android:background="@drawable/button">
+        </androidx.appcompat.widget.AppCompatButton>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:layout_marginTop="12dp"
+            android:id="@+id/buttonSynchToApp"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:text="Синхронизировать контакты с приложением"
+            android:textColor="@color/white"
+            android:textSize="16dp"
+            android:textAllCaps="false"
+            android:background="@drawable/button">
+        </androidx.appcompat.widget.AppCompatButton>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:layout_marginTop="12dp"
+            android:id="@+id/btn"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:text="btn"
             android:textColor="@color/white"
             android:textSize="16dp"
             android:textAllCaps="false"

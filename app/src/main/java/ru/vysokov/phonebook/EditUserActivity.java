@@ -44,7 +44,7 @@ public class EditUserActivity extends AppCompatActivity {
         imageBack.setOnClickListener(view -> startActivity(mainActivity));
 
         if (entity.equals("individual")) {
-            edit1.setHint("Название: " + info1);
+            edit1.setHint("Имя: " + info1);
             edit2.setHint("Телефон: " + info2);
             edit3.setHint("Адрес: " + info3);
             edit4.setHint("Возраст: " + info4);
@@ -58,6 +58,14 @@ public class EditUserActivity extends AppCompatActivity {
             edit4.setHint("E-mail: " + info4);
             edit5.setHint("Деятельность: " + info5);
             edit6.setHint("Штат: " + info6);
+        }
+        else if (entity.equals("mobilecontact")) {
+            edit1.setHint("Имя: " + info1);
+            edit2.setHint("Телефон: " + info2);
+            edit3.setVisibility(View.INVISIBLE);
+            edit4.setVisibility(View.INVISIBLE);
+            edit5.setVisibility(View.INVISIBLE);
+            edit6.setVisibility(View.INVISIBLE);
         }
 
         buttonSave.setOnClickListener(view -> {
@@ -86,11 +94,21 @@ public class EditUserActivity extends AppCompatActivity {
                         edit6.getText().toString());
                 editIndividual.setId(currentUserId);
                 MainActivity.setUsers().set(PhoneAdapter.getUserPos(), editIndividual);
-            }
 
-            SQLiteDatabase database = new DBHelper(getApplicationContext()).getWritableDatabase();
-            database.execSQL("UPDATE individual SET name = '" + edit1.getText().toString() + "', phone = '" + edit2.getText().toString() + "', address = '" + edit3.getText().toString() + "', age = '" + edit4.getText().toString() + "', education = '" + edit5.getText().toString() + "', profession =  '" + edit6.getText().toString() + "' WHERE id = '"+ currentUserId +"'");
-            database.close();
+                SQLiteDatabase database = new DBHelper(getApplicationContext()).getWritableDatabase();
+                database.execSQL("UPDATE individual SET name = '" + edit1.getText().toString() + "', phone = '" + edit2.getText().toString() + "', address = '" + edit3.getText().toString() + "', age = '" + edit4.getText().toString() + "', education = '" + edit5.getText().toString() + "', profession =  '" + edit6.getText().toString() + "' WHERE id = '"+ currentUserId +"'");
+                database.close();
+            }
+            else if (entity.equals("mobilecontact")) {
+                MobileContact editMobilecontact = new MobileContact(edit1.getText().toString(),
+                        edit2.getText().toString());
+                editMobilecontact.setId(currentUserId);
+                MainActivity.setUsers().set(PhoneAdapter.getUserPos(), editMobilecontact);
+
+                SQLiteDatabase database = new DBHelper(getApplicationContext()).getWritableDatabase();
+                database.execSQL("UPDATE mobilecontact SET name = '" + edit1.getText().toString() + "', phone = '" + edit2.getText().toString()  + "' WHERE id = '"+ currentUserId +"'");
+                database.close();
+            }
             startActivity(mainActivity);
         });
     }

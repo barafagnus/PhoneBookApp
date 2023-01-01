@@ -13,8 +13,13 @@ public abstract class User {
         this.phone = phone;
         this.address = address;
     }
-    User() {
+    User(String name, String phone) {
+        ENV.ID++;
+        this.id = ENV.ID;
+        this.name = name;
+        this.phone = phone;
     }
+
     @Override
     public abstract String toString();
 

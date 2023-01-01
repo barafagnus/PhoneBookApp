@@ -1,12 +1,21 @@
 package ru.vysokov.phonebook;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.ContentUris;
+import android.content.ContentValues;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.ContactsContract;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import java.util.LinkedList;
 
 public class UserInfoActivity extends AppCompatActivity {
@@ -34,8 +43,11 @@ public class UserInfoActivity extends AppCompatActivity {
         TextView txtInfo6 = findViewById(R.id.info6);
 
         ImageView buttonCancel = (ImageView) findViewById(R.id.back);
+        ImageView imgCallContact = (ImageView) findViewById(R.id.imgCallContact);
+        ImageView imgAddContact = (ImageView) findViewById(R.id.imgAddContact);
+        ImageView imgDeleteContact = (ImageView) findViewById(R.id.imgDeleteContact);
+
         Button buttonEdit = (Button) findViewById(R.id.buttonEdit);
-        Button buttonDelete = (Button) findViewById(R.id.buttonDelete);
         Intent mainActivity = new Intent(this, MainActivity.class);
         Intent EditUserActivity = new Intent(this, EditUserActivity.class);
 
@@ -71,7 +83,36 @@ public class UserInfoActivity extends AppCompatActivity {
             txtInfo6.setText("Специальность: " + info6);
         }
 
-        buttonDelete.setOnClickListener(view -> {
+        else if (entity.equals("mobilecontact")) {
+            entityImg.setImageResource(R.drawable.ic_avatar);
+            txtInfo1.setText(info1);
+            txtInfo2.setText(info2);
+        }
+
+        imgCallContact.setOnClickListener(view -> {
+            Intent call = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + info2));
+            startActivity(call);
+        });
+
+        imgAddContact.setOnClickListener(view -> {
+            Uri rawContactUri = this.getContentResolver().insert(ContactsContract.RawContacts.CONTENT_URI, new ContentValues());
+            long id = ContentUris.parseId(rawContactUri);
+            ContentValues value = new ContentValues();
+            value.put(ContactsContract.RawContacts.Data.MIMETYPE, ContactsContract.CommonDataKinds.StructuredName.CONTENT_ITEM_TYPE);
+            value.put(ContactsContract.RawContacts.Data.RAW_CONTACT_ID, id);
+            value.put(ContactsContract.CommonDataKinds.StructuredName.DISPLAY_NAME, info1);
+            getContentResolver().insert(ContactsContract.Data.CONTENT_URI, value);
+            value.clear();
+            value.put(ContactsContract.RawContacts.Data.RAW_CONTACT_ID, id);
+            value.put(ContactsContract.RawContacts.Data.MIMETYPE, ContactsContract.CommonDataKinds.Phone.CONTENT_ITEM_TYPE);
+            value.put(ContactsContract.CommonDataKinds.Phone.NUMBER, info2);
+            value.put(ContactsContract.CommonDataKinds.Phone.TYPE, ContactsContract.CommonDataKinds.Phone.TYPE_MOBILE);
+            getContentResolver().insert(ContactsContract.Data.CONTENT_URI, value);
+
+            Toast.makeText(getApplicationContext(), "Пользователь добавлен в список контактов", Toast.LENGTH_SHORT);
+        });
+
+        imgDeleteContact.setOnClickListener(view -> {
             SQLiteDatabase database = new DBHelper(getApplicationContext()).getWritableDatabase();
 
             if (entity.equals("company")) {
@@ -82,10 +123,15 @@ public class UserInfoActivity extends AppCompatActivity {
                 database.execSQL("DELETE FROM individual WHERE id = '" + MainActivity.getUsers().get(PhoneAdapter.getUserPos()).getId() +"'");
                 database.close();
             }
+            else if (entity.equals("mobilecontact")) {
+                database.execSQL("DELETE FROM mobilecontact WHERE id = '" + MainActivity.getUsers().get(PhoneAdapter.getUserPos()).getId() +"'");
+                database.close();
+            }
 
             userList.remove(MainActivity.getUsers().get(PhoneAdapter.getUserPos()));
             MainActivity.setUsers(userList);
             startActivity(mainActivity);
         });
+
     }
 }

@@ -2,7 +2,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
-
+    <uses-permission android:name="android.permission.CALL_PHONE"></uses-permission>
+    <uses-permission android:name="android.permission.READ_CONTACTS"></uses-permission>
+    <uses-permission android:name="android.permission.WRITE_CONTACTS"></uses-permission>
+    <uses-permission android:name="android.permission.READ_CALL_LOG"></uses-permission>
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"></uses-permission>
 
     <application
         android:allowBackup="true"
@@ -15,6 +19,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Phonebook"
         tools:targetApi="31">
+        <activity
+            android:name=".CallHistoryActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
         <activity
             android:name=".SettingsActivity"
             android:exported="false">
@@ -44,6 +55,13 @@
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
+        <receiver android:name=".PhoneReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.PHONE_STATE">
+                </action>
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>

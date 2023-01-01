@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -44,9 +45,13 @@ public class PhoneAdapter extends ArrayAdapter<User> {
         if (this.users.get(position) instanceof Company) {
             imageView.setImageResource(R.drawable.ic_company);
         }
-        else {
+        else if (this.users.get(position) instanceof Individual){
             imageView.setImageResource(R.drawable.ic_avatar);
         }
+        else {
+            imageView.setImageResource(R.drawable.mobile_contact);
+        }
+
 
         LinearLayout userPosition = (LinearLayout) view.findViewById(R.id.userPosition);
 
@@ -74,9 +79,17 @@ public class PhoneAdapter extends ArrayAdapter<User> {
                     userInfoActivity.putExtra("info5", ((Individual) users.get(position)).getEducation());
                     userInfoActivity.putExtra("info6", ((Individual) users.get(position)).getProfession());
                 }
+
+                else if (users.get(position) instanceof MobileContact) {
+                    userInfoActivity.putExtra("entity", "mobilecontact");
+                    userInfoActivity.putExtra("info1", (users.get(position)).getName());
+                    userInfoActivity.putExtra("info2", (users.get(position)).getPhone());
+                }
+
                 context.startActivity(userInfoActivity);
             }
         });
+
         return view;
     }
 
